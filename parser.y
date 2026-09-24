@@ -1,96 +1,125 @@
 %{
 #include <stdio.h>
-#include <stdlib.h>
 
-// Declare functions and variables from lexer
-int yylex();
+/* Function provided by the lexer */
+int yylex(void);
+
+/* Function used by Bison for syntax errors */
 void yyerror(const char *s);
-extern FILE *yyin;
-extern int yylineno; // Optional, if you track lines
 %}
 
-/* Define tokens here later */
-%token BCSMAIN INT BOOL IF ELSE WHILE ID NUM RELOP
+
+/* TOKENS */
+
+%token BcsMain
+%token IF
+%token ELSE
+%token WHILE
+%token INT
+%token BOOL
+%token id
+%token num
+%token relop
+
+
+/* GRAMMAR */
 
 %%
+program
+    : BcsMain '{' declist stmtlist '}'
+    ;
 
-/* --- GRAMMAR RULES GO HERE --- */
-program: BCSMAIN '{' declist stmtlist '}' {
-    // If it successfully reaches here, parsing is complete
-    printf("Parsing Successful\n");
-    exit(0);
-}
-;
 
-declist: 
-    /* empty or declarations */
-    | declist decl
-;
+declist
+    : declist decl
+    | decl
+    ;
 
-decl:
-    type ID ';'
-;
 
-type:
-    INT | BOOL
-;
+decl
+    : type id ';'
+    ;
 
-stmtlist:
-    /* empty or statements */
-    | stmtlist stmt
-;
 
-stmt:
-    ID '=' expr ';'
+type
+    : INT
+    | BOOL
+    ;
+
+
+stmtlist
+    : stmtlist ';' stmt
+    | stmt
+    ;
+
+
+stmt
+    : id '=' aexpr
     | IF '(' expr ')' '{' stmtlist '}' ELSE '{' stmtlist '}'
     | WHILE '(' expr ')' '{' stmtlist '}'
-;
+    ;
 
-expr:
-    expr RELOP expr
-    | expr '+' term
+
+expr
+    : aexpr relop aexpr
+    | aexpr
+    ;
+
+
+aexpr
+    : aexpr '+' term
     | term
-;
+    ;
 
-term:
-    term '*' factor
+
+term
+    : term '*' factor
     | factor
-;
+    ;
 
-factor:
-    ID
-    | NUM
-;
+
+factor
+    : id
+    | num
+    ;
 
 %%
 
-/* --- C CODE SECTION (Including main) --- */
-void yyerror(const char *s) {
-    // This gets called automatically when a syntax error occurs
+
+/* ERROR HANDLING */
+
+void yyerror(const char *s)
+{
     printf("Syntax Error\n");
-    exit(0);
 }
 
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <source_file>\n", argv[0]);
+
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        printf("Please provide input file\n");
         return 1;
     }
 
-    // Open the input file provided via command line argument
-    FILE *file = fopen(argv[1], "r");
-    if (!file) {
-        perror("Could not open file");
+    /* Redirect stdin to the input program */
+    FILE *fp = fopen(argv[1], "r");
+
+    if (fp == NULL)
+    {
+        printf("Cannot open input file\n");
         return 1;
     }
 
-    // Point Flex to read from this file instead of standard input
-    yyin = file;
+    extern FILE *yyin;
+    yyin = fp;
 
-    // Start parsing
-    yyparse();
+    if (yyparse() == 0)
+    {
+        printf("Parsing Successful\n");
+    }
 
-    // Close the file
-    fclose(file);
+    fclose(fp);
+
     return 0;
 }

@@ -8,27 +8,27 @@
 
 [ \t\n\r]+                  { /* Skip whitespace */ }
 
-"BcsMain"                   { return BCSMAIN; }
+"BcsMain"                   { return BcsMain; }
 "int"                       { return INT; }
 "bool"                      { return BOOL; }
 "if"                        { return IF; }
 "else"                      { return ELSE; }
 "while"                     { return WHILE; }
 
-"="                         { return ASSIGN; }
-"+"                         { return PLUS; }
-"*"                         { return MULT; }
+"="                         { return '='; }
+"+"                         { return '+'; }
+"*"                         { return '*'; }
 
-";"                         { return SEMI; }
-"{"                         { return LBRACE; }
-"}"                         { return RBRACE; }
-"("                         { return LPAREN; }
-")"                         { return RPAREN; }
+";"                         { return ';'; }
+"{"                         { return '{'; }
+"}"                         { return '}'; }
+"("                         { return '('; }
+")"                         { return ')'; }
 
-"<"|">"|"<="|">="|"=="|"!=" { return RELOP; }
+"<"|">"|"<="|">="|"=="|"!=" { return relop; }
 
-[a-zA-Z][a-zA-Z0-9]*        { return ID; }
-[0-9]+                      { return NUM; }
+[a-zA-Z][a-zA-Z0-9]*        { return id; }
+[0-9]+                      { return num; }
 
 .                           { return yytext[0]; }
 
