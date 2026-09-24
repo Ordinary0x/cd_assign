@@ -1,0 +1,15 @@
+BcsMain {
+    int a;
+    int b;
+    int result;
+
+    a = 20;
+    b = 10;
+    result = a + b;
+
+    if (a > b) {
+        result = a * 2
+    } else {
+        result = b * 2
+    }
+}

@@ -1,0 +1,19 @@
+BcsMain {
+    int c;
+    int t;
+    bool flag;
+
+    c = 1;
+    t = 0;
+
+    while (c < 6) {
+        t = t + c;
+        c = c + 1
+    }
+
+    if (t > 10) {
+        t = t * 2
+    } else {
+        t = t + 5
+    }
+}

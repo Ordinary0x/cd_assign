@@ -54,15 +54,15 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    BCSMAIN = 258,                 /* BCSMAIN  */
-    INT = 259,                     /* INT  */
-    BOOL = 260,                    /* BOOL  */
-    IF = 261,                      /* IF  */
-    ELSE = 262,                    /* ELSE  */
-    WHILE = 263,                   /* WHILE  */
-    ID = 264,                      /* ID  */
-    NUM = 265,                     /* NUM  */
-    RELOP = 266                    /* RELOP  */
+    BcsMain = 258,                 /* BcsMain  */
+    IF = 259,                      /* IF  */
+    ELSE = 260,                    /* ELSE  */
+    WHILE = 261,                   /* WHILE  */
+    INT = 262,                     /* INT  */
+    BOOL = 263,                    /* BOOL  */
+    id = 264,                      /* id  */
+    num = 265,                     /* num  */
+    relop = 266                    /* relop  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
