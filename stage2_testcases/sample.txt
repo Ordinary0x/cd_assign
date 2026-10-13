@@ -1,0 +1,11 @@
+BcsMain {
+    int a;
+    int b;
+    int c;
+    int result;
+
+    a = 20;
+    b = 10;
+    c = a + b * 2;
+    result = a * b + c * 2 + b
+}

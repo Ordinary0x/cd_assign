@@ -1,0 +1,7 @@
+BcsMain {
+    int x;
+    int y;
+
+    x = 5;
+    y = x * count + 2
+}

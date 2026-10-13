@@ -2,14 +2,14 @@ TARGET = bcs24
 
 all: $(TARGET)
 
-$(TARGET): lex.yy.c parser.tab.c
-	gcc -Wall -std=gnu99 lex.yy.c parser.tab.c -o $(TARGET)
+$(TARGET): lex.yy.c parser_1.tab.c
+	gcc -Wall -std=gnu99 lex.yy.c parser_1.tab.c -o $(TARGET)
 
-lex.yy.c: lexer.l parser.tab.h
-	flex lexer.l
+lex.yy.c: lexer_1.l parser_1.tab.h
+	flex lexer_1.l
 
-parser.tab.c parser.tab.h: parser.y
-	bison -d parser.y
+parser.tab.c parser_1.tab.h: parser_1.y
+	bison -d parser_1.y
 
 clean:
-	rm -f $(TARGET) lex.yy.c parser.tab.c parser.tab.h
+	rm -f $(TARGET) lex.yy.c parser_1.tab.c parser_1.tab.h
